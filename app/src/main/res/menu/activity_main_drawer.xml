@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_talk"
+            android:icon="@drawable/baseline_supervisor_account_24"
+            android:title="推广交流" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/baseline_history_24"
+            android:title="历史记录" />
+        <item
+            android:id="@+id/nav_update_pwd"
+            android:icon="@drawable/baseline_password_24"
+            android:title="修改密码" />
+        <item
+            android:id="@+id/nav_change"
+            android:icon="@drawable/baseline_apps_24"
+            android:title="账号切换" />
+        <item
+            android:id="@+id/nav_update"
+            android:icon="@drawable/baseline_vertical_align_bottom_24"
+            android:title="版本更新" />
+        <item
+            android:id="@+id/nav_downloadpc"
+            android:icon="@drawable/baseline_browser_updated_24"
+            android:title="下载桌面端" />
+        <item
+            android:id="@+id/nav_back"
+            android:icon="@drawable/baseline_feedback_24"
+            android:title="问题反馈" />
+        <item
+            android:id="@+id/nav_about_app"
+            android:icon="@drawable/baseline_info_24"
+            android:title="关于APP" />
+    </group>
+    <group>
+        <item/>
+        <item/>
+    </group>
+    <group>
+        <item
+            android:id="@+id/nav_ewm"
+            android:icon="@mipmap/ewm"
+            android:title="扫描关注NEWS"/>
+    </group>
+</menu>

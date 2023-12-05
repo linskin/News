@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AboutApp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/gy_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_200"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:title="关于News"
+        app:titleTextColor="@color/white"
+        tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/about_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/log"
+        app:layout_constraintTop_toBottomOf="@id/gy_toolbar"/>
+
+    <TextView
+        android:id="@+id/pingpai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="软件工程旗下品牌"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/about_log" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="News Android版2.10.25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pingpai"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
