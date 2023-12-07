@@ -78,91 +78,68 @@ public class MainActivity extends AppCompatActivity {
         tv_username = nav_view.getHeaderView(0).findViewById(R.id.tv_username);
         tv_mark = nav_view.getHeaderView(0).findViewById(R.id.tv_mark);
 
-        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.nav_history){
-                    Intent intent = new Intent(MainActivity.this, HistoryListActivity.class);
-                    startActivity(intent);
-                }else if(item.getItemId()==R.id.nav_update_pwd){
-                    //判断是否登录
-                    UserInfo userInfo = UserInfo.getUserInfo();
-                    if(null!=userInfo){
-                        startActivity(new Intent(MainActivity.this,UpdatePwdActivity.class));
-                    }else {
-                        Toast.makeText(MainActivity.this,"请先登录",Toast.LENGTH_SHORT).show();;
-                    }
-
-                } else if (item.getItemId()==R.id.nav_about_app) {
-                    Intent intent = new Intent(MainActivity.this,AboutApp.class);
-                    startActivity(intent);
-                }else if (item.getItemId()==R.id.nav_exit){
-                    UserInfo userInfo = UserInfo.getUserInfo();
-                    if(null!=userInfo){
-                        new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("温馨提示")
-                                .setMessage("确认是否退出登录")
-                                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                                        UserInfo.setUserInfo(null);
-                                    }
-                                })
-                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                })
-                                .show();
-                    }else{
-                        Toast.makeText(MainActivity.this,"请先登录~~",Toast.LENGTH_SHORT).show();
-                    }
-                } else if (item.getItemId()==R.id.nav_talk) {
-                    Intent intent = new Intent(MainActivity.this,TicTacToeActivity.class);
-                    startActivity(intent);
-                }else if (item.getItemId()==R.id.nav_update) {
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("版本1.0.0")
-                            .setMessage("已经是最新版")
-                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                   Intent intent =  new Intent(MainActivity.this,AboutApp.class);
-                                   startActivity(intent);
-                                }
-                            })
-                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
-                            .show();
-                } else if (item.getItemId() == R.id.nav_downloadpc) {
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("桌面端")
-                            .setMessage("正在开发中~~~~")
-                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
-                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
-                            .show();
-                } else if (item.getItemId() == R.id.nav_start) {
-                    Intent intent = new Intent(MainActivity.this,StartShowActivity.class);
-                    startActivity(intent);
+        nav_view.setNavigationItemSelectedListener(item -> {
+            if(item.getItemId()==R.id.nav_history){
+                Intent intent13 = new Intent(MainActivity.this, HistoryListActivity.class);
+                startActivity(intent13);
+            }else if(item.getItemId()==R.id.nav_update_pwd){
+                //判断是否登录
+                UserInfo userInfo = UserInfo.getUserInfo();
+                if(null!=userInfo){
+                    startActivity(new Intent(MainActivity.this,UpdatePwdActivity.class));
+                }else {
+                    Toast.makeText(MainActivity.this,"请先登录",Toast.LENGTH_SHORT).show();;
                 }
 
-                return true;
+            } else if (item.getItemId()==R.id.nav_about_app) {
+                Intent intent13 = new Intent(MainActivity.this,AboutApp.class);
+                startActivity(intent13);
+            }else if (item.getItemId()==R.id.nav_exit){
+                UserInfo userInfo = UserInfo.getUserInfo();
+                if(null!=userInfo){
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("温馨提示")
+                            .setMessage("确认是否退出登录")
+                            .setPositiveButton("确认", (dialog, which) -> {
+                                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                                UserInfo.setUserInfo(null);
+                            })
+                            .setNegativeButton("取消", (dialog, which) -> {
+
+                            })
+                            .show();
+                }else{
+                    Toast.makeText(MainActivity.this,"请先登录~~",Toast.LENGTH_SHORT).show();
+                }
+            } else if (item.getItemId()==R.id.nav_talk) {
+                Intent intent13 = new Intent(MainActivity.this,TicTacToeActivity.class);
+                startActivity(intent13);
+            }else if (item.getItemId()==R.id.nav_update) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("版本1.0.0")
+                        .setMessage("已经是最新版")
+                        .setPositiveButton("确认", (dialog, which) -> {
+                           Intent intent1 =  new Intent(MainActivity.this,AboutApp.class);
+                           startActivity(intent1);
+                        })
+                        .setNegativeButton("取消", (dialog, which) -> {
+                        })
+                        .show();
+            } else if (item.getItemId() == R.id.nav_downloadpc) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("桌面端")
+                        .setMessage("正在开发中~~~~")
+                        .setPositiveButton("确认", (dialog, which) -> {
+                        })
+                        .setNegativeButton("取消", (dialog, which) -> {
+                        })
+                        .show();
+            } else if (item.getItemId() == R.id.nav_start) {
+                Intent intent13 = new Intent(MainActivity.this,StartShowActivity.class);
+                startActivity(intent13);
             }
 
-
+            return true;
         });
 
         btn_open_drawerLayout.setOnClickListener(v -> drawerLayout.open());
@@ -172,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent2);
                 }
         );
-
 
         //设置adapter
         viewPager.setAdapter(new FragmentStateAdapter(this) {
@@ -211,24 +187,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //viewPager和tab_layout关联在一起
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tab_layout, viewPager, new TabLayoutMediator.TabConfigurationStrategy(){
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText(titles.get(position).getTitle());
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tab_layout, viewPager, (tab, position) -> {
+            tab.setText(titles.get(position).getTitle());
 //                TabLayout.Tab tab1 = tab.setText(titles);
 //                tab.setText(titles[position]);
-            }
         });
 
         //这几话不能少
         tabLayoutMediator.attach();
 
-        tv_mark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GexinQianmin.class);
-                startActivity(intent);
-            }
+        tv_mark.setOnClickListener(v -> {
+            Intent intent12 = new Intent(MainActivity.this, GexinQianmin.class);
+            startActivity(intent12);
         });
     }
 
@@ -244,32 +214,20 @@ public class MainActivity extends AppCompatActivity {
             tv_username.setText("请登录");
             tv_mark.setText("");
             //登录点击事件
-            tv_username.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                    startActivity(intent);
+            tv_username.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
 
-                }
             });
         }
     }
 
-
     public void onBackPressed(){
         AlertDialog dialog;
-        dialog = new AlertDialog.Builder(this).setTitle("News").setIcon(R.mipmap.ewm).setMessage("是否退出应用？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                finish();
-            }
-        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).create();
+        dialog = new AlertDialog.Builder(this).setTitle("News").setIcon(R.mipmap.ewm).setMessage("是否退出应用？").setPositiveButton("确定", (dialog12, which) -> {
+            dialog12.dismiss();
+            finish();
+        }).setNegativeButton("取消", (dialog1, which) -> dialog1.dismiss()).create();
         dialog.show();
     }
 }
