@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android_new.entity.TitleInfo;
 import com.example.android_new.entity.UserInfo;
+import com.example.android_new.searchactivity.SearchActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -34,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
 
     private ImageView btn_open_drawerLayout;
+
+    private EditText editText;
     private DrawerLayout drawerLayout;
     private NavigationView nav_view;
     private TextView tv_username;
     private TextView tv_mark;
-    private NavigationView nav_view2;
 
 
     @Override
@@ -46,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(MainActivity.this,StartActivity.class);
+        startActivity(intent);
         //初始化title数据
         titles.add(new TitleInfo("推荐","top"));
         titles.add(new TitleInfo("国内","guonei"));
@@ -62,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         tab_layout = findViewById(R.id.tab_layout);
         btn_open_drawerLayout = findViewById(R.id.btn_open_drawerLayout);
+
+        editText = findViewById(R.id.et_search);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         nav_view = findViewById(R.id.nav_view);
@@ -77,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, HistoryListActivity.class);
                     startActivity(intent);
                 }else if(item.getItemId()==R.id.nav_update_pwd){
+                    //判断是否登录
                     UserInfo userInfo = UserInfo.getUserInfo();
                     if(null!=userInfo){
                         startActivity(new Intent(MainActivity.this,UpdatePwdActivity.class));
@@ -87,6 +96,67 @@ public class MainActivity extends AppCompatActivity {
                 } else if (item.getItemId()==R.id.nav_about_app) {
                     Intent intent = new Intent(MainActivity.this,AboutApp.class);
                     startActivity(intent);
+                }else if (item.getItemId()==R.id.nav_exit){
+                    UserInfo userInfo = UserInfo.getUserInfo();
+                    if(null!=userInfo){
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("温馨提示")
+                                .setMessage("确认是否退出登录")
+                                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                                        UserInfo.setUserInfo(null);
+                                    }
+                                })
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+                                .show();
+                    }else{
+                        Toast.makeText(MainActivity.this,"请先登录~~",Toast.LENGTH_SHORT).show();
+                    }
+                } else if (item.getItemId()==R.id.nav_talk) {
+                    Intent intent = new Intent(MainActivity.this,TicTacToeActivity.class);
+                    startActivity(intent);
+                }else if (item.getItemId()==R.id.nav_update) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("版本1.0.0")
+                            .setMessage("已经是最新版")
+                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                   Intent intent =  new Intent(MainActivity.this,AboutApp.class);
+                                   startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                } else if (item.getItemId() == R.id.nav_downloadpc) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("桌面端")
+                            .setMessage("正在开发中~~~~")
+                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                } else if (item.getItemId() == R.id.nav_start) {
+                    Intent intent = new Intent(MainActivity.this,StartShowActivity.class);
+                    startActivity(intent);
                 }
 
                 return true;
@@ -95,15 +165,13 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        btn_open_drawerLayout.setOnClickListener(v -> drawerLayout.open());
 
-
-
-        btn_open_drawerLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.open();
-            }
-        });
+        editText.setOnClickListener(v -> {
+                    Intent intent2 = new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(intent2);
+                }
+        );
 
 
         //设置adapter
@@ -114,13 +182,12 @@ public class MainActivity extends AppCompatActivity {
                 //创建 NewsTabFragment页面
                 String title = titles.get(position).getPy_title();
 //                String title = titles[position];
-                TabNewsFragment tabNewsFragment = TabNewsFragment.newInstance(title);
-                return tabNewsFragment;
+                return TabNewsFragment.newInstance(title);
             }
 
             @Override
             public int getItemCount() {
-                return getTitle().length();
+                return getTitle().toString().length();
             }
         });
 
@@ -156,7 +223,13 @@ public class MainActivity extends AppCompatActivity {
         //这几话不能少
         tabLayoutMediator.attach();
 
-
+        tv_mark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GexinQianmin.class);
+                startActivity(intent);
+            }
+        });
     }
 
     protected void onResume(){
@@ -170,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             tv_username.setText("请登录");
             tv_mark.setText("");
+            //登录点击事件
             tv_username.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -182,12 +256,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     public void onBackPressed(){
         AlertDialog dialog;
-        dialog = new AlertDialog.Builder(this).setTitle("News").setIcon(R.mipmap.ic_launcher_round).setMessage("是否退出应用？").setNeutralButton("确定", new DialogInterface.OnClickListener() {
+        dialog = new AlertDialog.Builder(this).setTitle("News").setIcon(R.mipmap.ewm).setMessage("是否退出应用？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

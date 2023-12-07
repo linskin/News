@@ -1,13 +1,12 @@
 package com.example.android_new.entity;
 
 public class UserInfo {
-    private int _id;
+    private int user_id;
     private String username;
-    private String mark;
     private String password;
-    private int register_type;
+    private String mark;
 
-    public static UserInfo sUserInfo;
+    public static  UserInfo sUserInfo;
 
     public static UserInfo getUserInfo() {
         return sUserInfo;
@@ -17,29 +16,23 @@ public class UserInfo {
         sUserInfo = userInfo;
     }
 
-    public UserInfo(int _id, String username, String password, int register_type) {
-        this._id = _id;
+    public UserInfo(int user_id, String username, String password, String mark) {
+        this.user_id = user_id;
         this.username = username;
         this.password = password;
-        this.register_type = register_type;
+        this.mark = mark;
     }
 
-    public int get_id() {
-        return _id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {
         return username;
-    }
-    public String getMark() {
-        return mark;
-    }
-    public void setMark(String mark){
-        this.mark = mark;
     }
 
     public void setUsername(String username) {
@@ -54,12 +47,11 @@ public class UserInfo {
         this.password = password;
     }
 
-    public int getRegister_type() {
-        return register_type;
+    public String getMark() {
+        return mark;
     }
 
-    public void setRegister_type(int register_type) {
-        this.register_type = register_type;
+    public void setMark(String mark) {
+        this.mark = mark;
     }
-
 }

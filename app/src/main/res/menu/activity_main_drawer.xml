@@ -7,7 +7,7 @@
         <item
             android:id="@+id/nav_talk"
             android:icon="@drawable/baseline_supervisor_account_24"
-            android:title="推广交流" />
+            android:title="Tic-Tac-Toe" />
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/baseline_history_24"
@@ -16,10 +16,7 @@
             android:id="@+id/nav_update_pwd"
             android:icon="@drawable/baseline_password_24"
             android:title="修改密码" />
-        <item
-            android:id="@+id/nav_change"
-            android:icon="@drawable/baseline_apps_24"
-            android:title="账号切换" />
+
         <item
             android:id="@+id/nav_update"
             android:icon="@drawable/baseline_vertical_align_bottom_24"
@@ -36,15 +33,24 @@
             android:id="@+id/nav_about_app"
             android:icon="@drawable/baseline_info_24"
             android:title="关于APP" />
+        <item
+            android:id="@+id/nav_exit"
+            android:title="退出登录"
+            android:icon="@drawable/baseline_exit_to_app_24"/>
     </group>
     <group>
-        <item/>
-        <item/>
+        <item android:title="" />
     </group>
     <group>
         <item
             android:id="@+id/nav_ewm"
             android:icon="@mipmap/ewm"
             android:title="扫描关注NEWS"/>
+    </group>
+    <group>
+        <item
+            android:id="@+id/nav_start"
+            android:icon="@drawable/logoimg"
+            android:title="开屏动画"/>
     </group>
 </menu>

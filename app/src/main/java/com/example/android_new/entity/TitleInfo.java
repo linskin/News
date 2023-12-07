@@ -1,4 +1,4 @@
-package com.example.android_new;
+package com.example.android_new.entity;
 
 public class TitleInfo {
     private String title;

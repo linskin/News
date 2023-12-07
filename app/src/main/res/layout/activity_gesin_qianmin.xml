@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GexinQianmin">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/gexin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/my_light_primary"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:title="个 性 签 名"
+        app:titleTextColor="@color/white"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/gexin_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/log"
+        app:layout_constraintTop_toBottomOf="@id/gexin" />
+
+    <EditText
+        android:id="@+id/gx_editText"
+        android:layout_width="260dp"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:hint="编辑个签，展示我的独特态度"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gexin_log" />
+
+    <TextView
+        android:id="@+id/te"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="同步个性标签"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gx_editText"
+        tools:ignore="MissingConstraints" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/te"
+        app:layout_constraintTop_toBottomOf="@+id/gx_editText" />
+
+    <Button
+        android:id="@+id/gx_fabu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发布"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gexin_log"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

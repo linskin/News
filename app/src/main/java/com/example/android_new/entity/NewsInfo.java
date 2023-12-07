@@ -1,4 +1,4 @@
-package com.example.android_new;
+package com.example.android_new.entity;
 
 import java.io.Serializable;
 import java.util.List;

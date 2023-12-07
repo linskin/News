@@ -7,10 +7,14 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
-    <View
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/denglubar"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/my_light_primary" />
+        android:layout_height="wrap_content"
+        app:titleTextColor="@color/white"
+        app:title="登 录"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        android:background="@color/my_light_primary"/>
 
     <ImageView
         android:layout_width="match_parent"
@@ -57,7 +61,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@null"
                 android:hint="请输入用户名"
-                android:text="zsan"
+                android:text="hero"
                 android:textSize="14sp" />
 
 
@@ -85,7 +89,7 @@
                 android:background="@null"
                 android:hint="请输入密码"
                 android:inputType="textPassword"
-                android:text="123456"
+                android:text="123"
                 android:textSize="14sp" />
 
 
@@ -121,7 +125,7 @@
 
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/dl_login"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"

@@ -1,5 +1,6 @@
 package com.example.android_new.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.android_new.NewsInfo;
+import com.example.android_new.entity.NewsInfo;
 import com.example.android_new.R;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHolder> {
     private List<NewsInfo.ResultBean.DataBean> mDataBeanList = new ArrayList<>();
-    private Context mContext;
+    private final Context mContext;
 
 
     public NewsListAdapter(Context context) {
@@ -30,11 +31,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHold
     /**
      * 为adapter 设置数据源
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void setListData(List<NewsInfo.ResultBean.DataBean> listData) {
         this.mDataBeanList = listData;
         //一定要调用
         notifyDataSetChanged();
-
     }
 
 
@@ -42,12 +43,12 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHold
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //加载布局文件
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list_item, null);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list_item, null);
         return new MyHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyHolder holder, @SuppressLint("RecyclerView") int position) {
         //绑定数据
         NewsInfo.ResultBean.DataBean dataBean = mDataBeanList.get(position);
 
@@ -60,13 +61,10 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHold
 
 
         //点击事件
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(null != mOnItemClickListener){
-                    mOnItemClickListener.onItemClickListen(dataBean,position);
+        holder.itemView.setOnClickListener(v -> {
+            if(null != mOnItemClickListener){
+                mOnItemClickListener.onItemClickListen(dataBean,position);
 
-                }
             }
         });
     }

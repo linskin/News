@@ -1,4 +1,4 @@
-package com.example.ceshihunyong.ui.theme
+package com.example.android_new.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -15,13 +15,13 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = Red,
     secondary = PurpleGrey80,
     tertiary = Pink80
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = Red,
     secondary = PurpleGrey40,
     tertiary = Pink40
 
@@ -36,12 +36,12 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+// 应用主题
 @Composable
 fun ApprenticeshipTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    darkTheme: Boolean = isSystemInDarkTheme(), // 是否使用暗色主题，默认为系统主题
+    dynamicColor: Boolean = false, // 是否使用动态颜色，默认为 true
+    content: @Composable () -> Unit // 内容函数
 ) {
     val colorScheme = when {
         dynamicColor -> {
@@ -49,21 +49,23 @@ fun ApprenticeshipTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> DarkColorScheme   // 如果使用了暗色主题，则使用暗色颜色方案
+        else -> LightColorScheme       // 否则使用亮色颜色方案
     }
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+
+    val view = LocalView.current // 获取当前视图
+    if (!view.isInEditMode) { // 如果不是在编辑模式下
+        SideEffect { // 通过SideEffect注解修饰的函数，表示该函数是一个副作用函数
+            val window = (view.context as Activity).window // 获取当前视图的上下文并转换为Activity类型，再获取其window对象
+            window.statusBarColor = colorScheme.primary.toArgb() // 设置window的statusBarColor为colorScheme的primary颜色的ARGB值
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme // 获取window的InsetsController对象，并设置其isAppearanceLightStatusBars属性为darkTheme
         }
     }
 
+
     MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
+        colorScheme = colorScheme, // 颜色方案
+        typography = Typography, // 字体排版
+        content = content // 内容函数
     )
 }

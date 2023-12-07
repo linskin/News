@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.example.android_new.entity.UserInfo;
 
 public class UserDbHelper extends SQLiteOpenHelper {
+
     private static UserDbHelper sHelper;
     private static final String DB_NAME = "user_info.db";   //数据库名
     private static final int VERSION = 1;    //版本号
@@ -31,10 +32,10 @@ public class UserDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //创建user_table表
-        db.execSQL("create table user_table(_id integer primary key autoincrement, " +
+        db.execSQL("create table user_table(user_id integer primary key autoincrement, " +
                 "username text," +       //用户名
                 "password text," +      //密码
-                "register_type integer" +       // 注册类型   0---用户   1---管理员
+                "mark text" +       // 格言
                 ")");
 
 
@@ -45,15 +46,17 @@ public class UserDbHelper extends SQLiteOpenHelper {
 
     }
 
-
-    public int register(String username, String password, int register_type) {
+    /**
+     * 注册
+     */
+    public int register(String username, String password, String mark) {
         //获取SQLiteDatabase实例
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         //填充占位符
         values.put("username", username);
         values.put("password", password);
-        values.put("register_type", register_type);
+        values.put("mark", mark);
         String nullColumnHack = "values(null,?,?,?)";
         //执行
         int insert = (int) db.insert("user_table", nullColumnHack, values);
@@ -69,35 +72,52 @@ public class UserDbHelper extends SQLiteOpenHelper {
         //获取SQLiteDatabase实例
         SQLiteDatabase db = getReadableDatabase();
         UserInfo userInfo = null;
-        String sql = "select _id,username,password,register_type  from user_table where username=?";
+        String sql = "select user_id,username,password,mark  from user_table where username=?";
         String[] selectionArgs = {username};
         Cursor cursor = db.rawQuery(sql, selectionArgs);
         if (cursor.moveToNext()) {
-            int _id = cursor.getInt(cursor.getColumnIndex("_id"));
+            int user_id = cursor.getInt(cursor.getColumnIndex("user_id"));
             String name = cursor.getString(cursor.getColumnIndex("username"));
             String password = cursor.getString(cursor.getColumnIndex("password"));
-            int register_type = cursor.getInt(cursor.getColumnIndex("register_type"));
-            userInfo = new UserInfo(_id, name, password, register_type);
+            String Mark = cursor.getString(cursor.getColumnIndex("mark"));
+            userInfo = new UserInfo(user_id, name, password, Mark);
         }
         cursor.close();
         db.close();
         return userInfo;
     }
 
+
     /**
-     * 根据用户唯一 _id来修改密码
+     * 根据用户唯一名字来修改密码
      */
-    public int updatePwd(int _id, String password) {
+    public int updatePwd(String username, String password) {
         //获取SQLiteDatabase实例
         SQLiteDatabase db = getWritableDatabase();
         // 填充占位符
         ContentValues values = new ContentValues();
         values.put("password", password);
         // 执行SQL
-        int update = db.update("user_table", values, " _id=?", new String[]{_id+""});
+        int update = db.update("user_table", values, " username=?", new String[]{username});
         // 关闭数据库连接
         db.close();
         return update;
 
     }
+    /**
+     * 根据用户唯一名字来修改个性签名
+     */
+    public int updateQM(String username, String mark) {
+        //获取SQLiteDatabase实例
+        SQLiteDatabase db = getWritableDatabase();
+        // 填充占位符
+        ContentValues values = new ContentValues();
+        values.put("mark", mark);
+        // 执行SQL
+        int update = db.update("user_table", values, " username=?", new String[]{username});
+        // 关闭数据库连接
+        db.close();
+        return update;
+    }
+
 }

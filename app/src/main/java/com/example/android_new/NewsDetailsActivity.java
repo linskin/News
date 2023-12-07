@@ -7,34 +7,36 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.example.android_new.db.HistoryDbHelper;
+import com.example.android_new.entity.NewsInfo;
+import com.google.gson.Gson;
+
 public class NewsDetailsActivity extends AppCompatActivity {
-    private NewsInfo.ResultBean.DataBean dataBean;
-
-    private Toolbar toolbar;
-
-    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details);
 
-        toolbar = findViewById(R.id.toolbar);
-        webView = findViewById(R.id.webView);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        WebView webView = findViewById(R.id.webView);
 
-        dataBean = (NewsInfo.ResultBean.DataBean) getIntent().getSerializableExtra("dataBean");
+        NewsInfo.ResultBean.DataBean dataBean = (NewsInfo.ResultBean.DataBean) getIntent().getSerializableExtra("dataBean");
 
-        if(null!=dataBean){
+        //设置数据
+        if(null!= dataBean){
             toolbar.setTitle(dataBean.getTitle());
             webView.loadUrl(dataBean.getUrl());
+
+            //添加历史记录
+            String dataBeanJson = new Gson().toJson(dataBean);
+            HistoryDbHelper.getInstance(NewsDetailsActivity.this).addHistory(null, dataBean.getUniquekey(),dataBeanJson);
+
         }
 
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setOnClickListener(v -> finish());
+
+
 
     }
 }
