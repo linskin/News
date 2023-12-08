@@ -26,26 +26,18 @@ public class RegisterActivity extends AppCompatActivity {
         et_password = findViewById(R.id.zc_et_password);
 
 
-        findViewById(R.id.zhucebar).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.zhucebar).setOnClickListener(v -> finish());
 
-        findViewById(R.id.zc_register).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = et_username.getText().toString();
-                String password = et_password.getText().toString();
-                if(TextUtils.isEmpty(username) && TextUtils.isEmpty(password)){
-                    Toast.makeText(RegisterActivity.this,"请输入完整的用户名和密码",Toast.LENGTH_SHORT).show();
-                }else{
-                    int row = UserDbHelper.getInstance(RegisterActivity.this).register(username,password,"暂无~~~~");
-                    if(row>0){
-                        Toast.makeText(RegisterActivity.this,"注册成功，请登录！！",Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
+        findViewById(R.id.zc_register).setOnClickListener(v -> {
+            String username = et_username.getText().toString();
+            String password = et_password.getText().toString();
+            if(TextUtils.isEmpty(username) && TextUtils.isEmpty(password)){
+                Toast.makeText(RegisterActivity.this,"请输入完整的用户名和密码",Toast.LENGTH_SHORT).show();
+            }else{
+                int row = UserDbHelper.getInstance(RegisterActivity.this).register(username,password,"暂无~~~~");
+                if(row>0){
+                    Toast.makeText(RegisterActivity.this,"注册成功，请登录！！",Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });

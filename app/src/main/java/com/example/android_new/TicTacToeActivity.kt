@@ -25,11 +25,6 @@ class TicTacToeActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-//                    ComposeOneScreen()
-//                        EmudiScreen()
-//                    RunningCarScreen()
-//                    TheStoryScreen()
-//                    MyComposeOneScreen()
                     TicTacToeScreen(
                         viewModel = TicTacToeViewModel(sharedPref = TicTacToeSharedPref(context = this)),
                         goBack = ::goBack

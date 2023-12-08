@@ -4,24 +4,34 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.waterfallPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.android_new.theme.ApprenticeshipTheme
+import com.example.android_new.theme.Red
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -42,7 +52,7 @@ class SearchActivity : AppCompatActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    SearchScreen()
+                    intent.getStringExtra("searchText")?.let { SearchScreen(it) }
                 }
             }
         }
@@ -53,31 +63,48 @@ class SearchActivity : AppCompatActivity() {
 @Composable
 fun SearchPreview() {
     ApprenticeshipTheme {
-        SearchScreen()
+        SearchScreen("你好")
     }
 }
 
 @Composable
-fun SearchScreen() {
-    var searchQuery by remember { mutableStateOf("") }
-
-    Column(modifier = Modifier.fillMaxSize()) {
-        TextField(
-            value = searchQuery,
-            onValueChange = { query ->
-                searchQuery = query
-                performSearch(query)
-            },
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            Thread.sleep(1000)
-            items(searchResults) { result ->
-                Text(result, modifier = Modifier.padding(16.dp),)
+fun SearchScreen(searchText: String) {
+    var searchQuery by remember { mutableStateOf("  $searchText") }
+    val results = arrayListOf("sadklkE", "awea","dsa")
+        Surface(modifier = Modifier.waterfallPadding()) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Red)
+                    .height(60.dp)
+                ) {
+                  BasicTextField(
+                        value = searchQuery,
+                        onValueChange = { query ->
+                            searchQuery = query
+//                performSearch(query)
+                        },
+                        singleLine = true,
+                        textStyle = TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Light,
+                            fontFamily = FontFamily.SansSerif
+                        ),
+                        modifier = Modifier
+                            .padding(14.dp)
+                            .height(32.dp)
+                            .fillMaxWidth()
+                            .background(Color.White, shape = RoundedCornerShape(5.dp)),
+                    )
+                }
+                LazyColumn(modifier = Modifier.fillMaxWidth()) {
+//                    Thread.sleep(1000)
+                    items(results) { result ->
+                        Text(result, modifier = Modifier.padding(16.dp))
+                    }
+                }
             }
         }
-    }
 }
 
 private fun performSearch(query: String) {

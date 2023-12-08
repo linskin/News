@@ -1,11 +1,10 @@
 package com.example.android_new;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
+import android.text.TextUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView btn_open_drawerLayout;
 
+    private ImageView scan;
+
     private EditText editText;
+
+    private TextView btnSearch;
     private DrawerLayout drawerLayout;
     private NavigationView nav_view;
     private TextView tv_username;
@@ -70,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         btn_open_drawerLayout = findViewById(R.id.btn_open_drawerLayout);
 
         editText = findViewById(R.id.et_search);
+        btnSearch = findViewById(R.id.btn_search);
+        scan = findViewById(R.id.scan);
+
         drawerLayout = findViewById(R.id.drawer_layout);
 
         nav_view = findViewById(R.id.nav_view);
@@ -135,20 +141,49 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .show();
             } else if (item.getItemId() == R.id.nav_start) {
-                Intent intent13 = new Intent(MainActivity.this,StartShowActivity.class);
-                startActivity(intent13);
+                Intent intentStart = new Intent(MainActivity.this,StartShowActivity.class);
+                startActivity(intentStart);
+            } else if (item.getItemId() == R.id.nav_back) {
+                Intent intentBack = new Intent(MainActivity.this,ScanActivity.class);
+                startActivity(intentBack);
+            }else if (item.getItemId() == R.id.nav_ewm) {
+                Intent intentEwm = new Intent(MainActivity.this,ScanActivity.class);
+                startActivity(intentEwm);
             }
-
             return true;
         });
 
         btn_open_drawerLayout.setOnClickListener(v -> drawerLayout.open());
 
-        editText.setOnClickListener(v -> {
-                    Intent intent2 = new Intent(MainActivity.this, SearchActivity.class);
-                    startActivity(intent2);
-                }
-        );
+//        editText.setOnClickListener(v -> {
+//                    Intent intent2 = new Intent(MainActivity.this, SearchActivity.class);
+//                    startActivity(intent2);
+//                }
+//        );
+        btnSearch.setOnClickListener(v -> {
+            String searchText = editText.getText().toString();
+            if(TextUtils.isEmpty(searchText)){
+                Toast.makeText(MainActivity.this,"请输入搜索内容",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(searchText.length()<2){
+                Toast.makeText(MainActivity.this,"搜索内容太短",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(searchText.length()>10){
+                Toast.makeText(MainActivity.this,"搜索内容太长",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent intent2 = new Intent(MainActivity.this, SearchActivity.class);
+            intent2.putExtra("searchText",searchText);
+            startActivity(intent2);
+        });
+
+        scan.setOnClickListener(v -> {
+            Intent intent3 = new Intent(MainActivity.this, ScanActivity.class);
+            startActivity(intent3);
+        });
 
         //设置adapter
         viewPager.setAdapter(new FragmentStateAdapter(this) {

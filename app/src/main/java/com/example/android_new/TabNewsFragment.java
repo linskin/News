@@ -31,9 +31,9 @@ import okhttp3.Response;
 
 public class TabNewsFragment extends Fragment {
 
-    private String url="http://v.juhe.cn/toutiao/index?key=35626a6c07a0f3983921f2a7c4d50d2d&type=";
+//    private String url="http://v.juhe.cn/toutiao/index?key=35626a6c07a0f3983921f2a7c4d50d2d&type=";
 
-//    private String url ="https://www.toutiao.com";
+    private String url ="https://www.toutiao.com";
     private View rootView;
 
     private RecyclerView recyclerView;
