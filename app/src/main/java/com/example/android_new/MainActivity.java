@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public int getItemCount() {
-                return getTitle().toString().length();
+                return titles.size();
             }
         });
 
