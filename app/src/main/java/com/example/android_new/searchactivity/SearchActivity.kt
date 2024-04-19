@@ -70,7 +70,7 @@ fun SearchPreview() {
 @Composable
 fun SearchScreen(searchText: String) {
     var searchQuery by remember { mutableStateOf("  $searchText") }
-    val results = arrayListOf("sadklkE", "awea","dsa")
+    val results = arrayListOf("搜索功能", "仍在开发中","敬请期待","By Kotlin & JetCompose")
         Surface(modifier = Modifier.waterfallPadding()) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier
