@@ -125,10 +125,10 @@ public class TabNewsFragment extends Fragment {
         // 构造Request对象
 
         // 一号url
-//     String url = "http://v.juhe.cn/toutiao/index?key=35626a6c07a0f3983921f2a7c4d50d2d&type=";
+     String url = "http://v.juhe.cn/toutiao/index?key=35626a6c07a0f3983921f2a7c4d50d2d&type=";
 
         // 二号url
-     String url = "http://v.juhe.cn/toutiao/index?key=350ba6de270f23a4e055f3192808ab69&type=";
+//     String url = "http://v.juhe.cn/toutiao/index?key=350ba6de270f23a4e055f3192808ab69&type=";
         // 测试用的url
 //        String url = "https://www.toutiao.com";
         Request request = new Request.Builder()
